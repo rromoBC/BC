@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Embedded</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/powerbi-client/2.23.1/powerbi.min.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        #reportContainer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="reportContainer"></div>
+
+<script>
+    // 1. Token Embed generado por tu backend
+    let embedToken = "uDwhrgHU2n4hba4wTrTtjMpRv9Sm--ePH36-xnXQs-tXZ6Hcekm7awFYz926p-HBtckL6GGDGmPYgqSRP1brKYrjDBp7KVTb67VCneIVaPL1YHGdoP06aJt6Rk22Q3UnKa-bwCo7q--V7kjsyeBocJNWa5Zzq-rrycmivrr6gnK3EiFnis9vXmALs0AfYt2b0nX4IiXt3Y5fjyvyZay5l46pjy2vXpII57m872GZoyCsKlnICzO4HoEutal5DtkYfIlScVkZ76oDBu8jANqKpn6dfsgu9Y9DcDuU6mahli6cG9-fkBycZ9A8NS6J-mnZnqgURTuaMogOIZ6UCO4ah_2ZD_fzEsJ3hW1gkW6_35_29_qeEfLFYtUXYw_f-ZtOiefiR_Zff_2H-Rp_D0v1fykDfsyqUhlJMNvUPfnCZy897v-UWxV9vG5z9hvTzYMucr3c3YMekb2uSwXkw7CzscFhgWruCltHtxtxeMYvy0fE-oQI-PejPWzxFQYkV63yu_AMss1N1riocMd29uum7YJTFM6u--Y9RcfHC5o7-FG0oV0xqRcWwRH_bpoi6JFopuhz68FFIerDsr-PHme_xEcq4fdVHWEdffNnHT56QCV78VarRBMHwftgivrpEykdDPpXfgNAKawiJe-Tjcn4vUPZKNIfdTcPNYMAtu44gzJQz1kHXq2AFSisXKOAMTKlAXx2YW2kUL4d7AgdgLMygVergj2L311k6gplYGN2jPAQSZbVrooxKFvXCNsq9T380Ne0KTnGtol2KxfWP9X_MP_zL8-u0urCBgAA.eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVBBQVMtMS1TQ1VTLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZXhwIjoxNzYzMzIyNTI5LCJhbGxvd0FjY2Vzc092ZXJQdWJsaWNJbnRlcm5ldCI6dHJ1ZX0=";
+
+    // 2. URL de Embed del reporte (la de Embedded, no la del portal)
+    let embedUrl = "https://app.powerbi.com/reportEmbed?reportId=b974018c-0baa-4a20-8b82-4601403cae44&groupId=84a70e42-0cf9-49d7-98f5-46921636a1ca";
+
+
+    // 3. ID del reporte
+    let reportId = "b974018c-0baa-4a20-8b82-4601403cae44";
+
+    let models = window['powerbi-client'].models;
+
+    let config = {
+        type: 'report',
+        tokenType: models.TokenType.Embed,
+        accessToken: embedToken,
+        embedUrl: embedUrl,
+        id: reportId,
+        permissions: models.Permissions.View,
+        settings: {
+            panes: {
+                filters: { visible: false },
+                pageNavigation: { visible: true }
+            }
+        }
+    };
+
+    let reportContainer = document.getElementById("reportContainer");
+    let report = window.powerbi.embed(reportContainer, config);
+</script>
+
+</body>
+</html>
